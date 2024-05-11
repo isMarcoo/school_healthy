@@ -1,0 +1,48 @@
+{
+  "float": [
+    {
+      "name": "font_size_12fp",
+      "value": "12fp"
+    },
+    {
+      "name": "font_size_14fp",
+      "value": "14fp"
+    },
+    {
+      "name": "font_size_16fp",
+      "value": "16fp"
+    },
+    {
+      "name": "font_size_18fp",
+      "value": "18fp"
+    },
+    {
+      "name": "font_size_20fp",
+      "value": "20fp"
+    },
+    {
+      "name": "font_size_30fp",
+      "value": "30fp"
+    },
+    {
+      "name": "size_10vp",
+      "value": "10vp"
+    },
+    {
+      "name": "size_20vp",
+      "value": "20vp"
+    },
+    {
+      "name": "size_30vp",
+      "value": "30vp"
+    },
+    {
+      "name": "size_40vp",
+      "value": "40vp"
+    },
+    {
+      "name": "size_50vp",
+      "value": "50vp"
+    }
+  ]
+}

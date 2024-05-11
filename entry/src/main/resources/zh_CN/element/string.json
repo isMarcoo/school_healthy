@@ -1,0 +1,92 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "模块描述"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name":"register",
+      "value": "注册"
+    },
+    {
+      "name": "login",
+      "value": "登录"
+    },
+    {
+      "name": "register_title",
+      "value": "欢迎注册"
+    },
+    {
+      "name": "register_title_info",
+      "value": "注册登录账号即可解锁更多功能！"
+    },
+    {
+      "name": "login_title",
+      "value": "欢迎登录"
+    },
+    {
+      "name": "login_title_info",
+      "value": "一起更好地记录生活吧！"
+    },
+    {
+      "name": "user",
+      "value": "请输入账号"
+    },
+    {
+      "name": "password",
+      "value": "请输入密码"
+    },
+    {
+      "name": "email",
+      "value": "请输入邮箱"
+    },
+    {
+      "name": "v_code",
+      "value": "请输入验证码"
+    },
+    {
+      "name": "get_v_code",
+      "value": "获取验证码"
+    },
+    {
+      "name": "send_code",
+      "value": "验证码已发送"
+    },
+    {
+      "name": "refresh_code",
+      "value": "重新获取"
+    },
+    {
+      "name": "input_empty_tips",
+      "value": "请输入正确的账号或密码！"
+    },
+    {
+      "name": "agreement",
+      "value": "请阅读并勾选隐私协议！"
+    },
+    {
+      "name": "welcome",
+      "value": "欢迎来到APP！"
+    },
+    {
+      "name": "empty_tips",
+      "value": "请完善用户信息"
+    },
+    {
+      "name": "no_account",
+      "value": "还没有账号，快来注册吧!"
+    },
+    {
+      "name": "have_an_account",
+      "value": "已经有账号，点击这里立即登录!"
+    }
+  ]
+}
