@@ -1,17 +1,43 @@
+import { CirclePage } from './Circle';
 @Entry
 @Component
 struct Index {
-  @State message: string = 'Hello World'
+  @State currentTabIndex: number = 0;
 
   build() {
-    Row() {
-      Column() {
-        Text(this.message)
-          .fontSize(50)
-          .fontWeight(FontWeight.Bold)
-      }
-      .width('100%')
+    Tabs(){
+      TabContent() {
+        Text('计划')
+      }.tabBar('计划')
+
+      TabContent() {
+        CirclePage()
+      }.tabBar(this.barBuilder(1, '圈子', $r('app.media.app_icon'), $r('app.media.app_icon')))
+
+      TabContent() {
+        Text('我的')
+      }.tabBar('我的')
     }
-    .height('100%')
+    .barPosition(BarPosition.End)
+    .onChange((index) => {
+      this.currentTabIndex = index
+    })
   }
+
+  @Builder barBuilder(index: number, title: string, icon: Resource, iconSelected: Resource) {
+    Column() {
+      Image(this.currentTabIndex === index ? iconSelected : icon)
+        .width(25)
+        .height(25)
+      Text(title)
+        .tabTitleStyle(this.currentTabIndex === index ? Color.Black : '#959595')
+    }
+  }
+}
+
+@Extend(Text) function tabTitleStyle(color: ResourceColor) {
+  .fontSize(10)
+  .fontWeight(FontWeight.Medium)
+  .fontColor(color)
+  .margin({ bottom: 2 })
 }
