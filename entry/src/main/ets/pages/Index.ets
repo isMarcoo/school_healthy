@@ -1,4 +1,5 @@
 import { CirclePage } from './Circle';
+import { PlanPage } from './Plan';
 @Entry
 @Component
 struct Index {
@@ -7,7 +8,7 @@ struct Index {
   build() {
     Tabs(){
       TabContent() {
-        Text('计划')
+        PlanPage()
       }.tabBar('计划')
 
       TabContent() {

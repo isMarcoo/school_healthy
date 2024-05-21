@@ -5,7 +5,7 @@ import router from '@ohos.router'
 export struct CirclePage {
     @State postInfoList: PostInfo[] = [new PostInfo({
         id : 1,
-        postText : "hello world.",
+        postText : "健康万岁！运动万岁！",
         rightCount : 3,
         answeredCount : 4,
         timeUsed : 5747,
@@ -14,6 +14,17 @@ export struct CirclePage {
         nickname : "138****4985",
         avatarUrl : "",
         isLike : false
+    }), new PostInfo({
+        id: 2,
+        postText: "今天差点累死了",
+        rightCount: 3,
+        answeredCount: 4,
+        timeUsed: 5747,
+        createTime: "2024-05-10 19:38:54",
+        likeCount: 36,
+        nickname: "cxk",
+        avatarUrl: "",
+        isLike: false
     })]
     @StorageProp('token') token : string = ''
 
@@ -140,28 +151,28 @@ struct PostItem {
                 Column() {
                     StatItem({
                         icon: $r('app.media.app_icon'),
-                        name: '用时',
+                        name: '跑步',
                         fontColor: Color.White
                     }) {
                         // Text(convertMillisecondsToTime(this.post.timeUsed))
-                        Text(this.post.timeUsed.toString())
+                        Text('10分钟')
                             .statTextStyle()
                     }
 
                     StatItem({
                         icon: $r('app.media.app_icon'),
-                        name: '准确率',
+                        name: '俯卧撑',
                         fontColor: Color.White
                     }) {
-                        Text((this.post.answeredCount === 0 ? 0 : this.post.rightCount).toString())
+                        Text('25个')
                             .statTextStyle()
                     }
                 }
                 .padding(10)
                 .borderRadius(10)
                 .layoutWeight(1)
-                .backgroundImage($r('app.media.app_icon'))
-                .backgroundImageSize(ImageSize.Cover)
+                // .backgroundImage($r('app.media.ic_home_bg'))
+                // .backgroundImageSize(ImageSize.Cover)
 
                 Column() {
                     Text(this.post.likeCount.toString())
@@ -185,6 +196,8 @@ struct PostItem {
         .margin({ top: 10 })
         .borderRadius(10)
         .shadow({ radius: 20 })
+        .backgroundImage($r('app.media.ic_home_bg'))
+        .backgroundImageSize(ImageSize.Cover)
     }
 }
 
