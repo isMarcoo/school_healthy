@@ -1,10 +1,12 @@
 import router from '@ohos.router'
-import { sendCode } from '../http/Api'
+import { login } from '../http/Api'
 @Entry
 @Component
 struct LoginPage {
-  @State phone:string=''
-  @State code:string=''
+  @State username:string=''
+  @State password:string=''
+  @StorageLink('token') token:string = ''
+
   build() {
     Column() {
       Image($r('app.media.ic_back'))
@@ -21,10 +23,10 @@ struct LoginPage {
         Row() {
           Image($r("app.media.ic_phone"))
             .iconStyle()
-          TextInput({ placeholder: '请输⼊⼿机号码',text:this.phone })
+          TextInput({ placeholder: '请输⼊账号',text:this.username })
             .inputStyle()
             .onChange((value)=>{
-              this.phone=value;
+              this.username=value;
             })
         }.margin({ top: 30 })
         Divider()
@@ -32,28 +34,23 @@ struct LoginPage {
         Row() {
           Image($r("app.media.ic_code"))
             .iconStyle()
-          TextInput({ placeholder: '请输⼊验证码',text:this.code })
+          TextInput({ placeholder: '请输⼊密码',text:this.password })
             .inputStyle()
             .onChange((value)=>{
-              this.code=value;
-            })
-          Button('获取验证码')
-            .buttonStyle(Color.White, Color.Black)
-            .onClick(async  () => {
-              //todo:获取验证码
-              let response = await sendCode(this.phone)
-              this.code = response.data.verification_code
+              this.password=value;
             })
         }.margin({ top: 20 })
         Divider()
-          .margin({ right: 120 })
           .color(Color.Black)
         Button('⽴即登录')
           .buttonStyle(Color.Black, Color.White)
           .width('100%')
           .margin({ top: 50 })
-          .onClick(() => {
-            //todo:登录
+          .onClick(async () => {
+            //登录
+            let response = await login(this.username, this.password)
+            this.token = response.data.token
+
           })
         Row() {
           Text('登录即表示已同意')

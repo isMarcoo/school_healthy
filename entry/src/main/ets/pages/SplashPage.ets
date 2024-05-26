@@ -1,5 +1,7 @@
 import backgroundTaskManager from '@ohos.backgroundTaskManager';
 import router from '@ohos.router';
+PersistentStorage.PersistProp('token', '');
+
 @Entry
 @Component
 struct SplashPage {

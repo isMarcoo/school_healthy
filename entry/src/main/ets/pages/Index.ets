@@ -1,5 +1,6 @@
-import { CirclePage } from './Circle';
-import { PlanPage } from './Plan';
+import { CirclePage } from '../view/circle/Circle';
+import { MinePage } from '../view/mine/MinePage';
+import { PlanPage } from '../view/plan/PlanPage';
 @Entry
 @Component
 struct Index {
@@ -9,15 +10,19 @@ struct Index {
     Tabs(){
       TabContent() {
         PlanPage()
-      }.tabBar('计划')
+      }.tabBar(this.barBuilder(0, '主页', $r('app.media.ic_tabs_home_normal'), $r('app.media.ic_tabs_home_sel')))
+
+      TabContent() {
+      // 成就页面
+      }.tabBar(this.barBuilder(1, '成就', $r('app.media.ic_tabs_achievement_normal'), $r('app.media.ic_tabs_achievement_sel')))
 
       TabContent() {
         CirclePage()
-      }.tabBar(this.barBuilder(1, '圈子', $r('app.media.app_icon'), $r('app.media.app_icon')))
+      }.tabBar(this.barBuilder(2, '圈子', $r('app.media.ic_circle_normal'), $r('app.media.ic_circle_sel')))
 
       TabContent() {
-        Text('我的')
-      }.tabBar('我的')
+        MinePage()
+      }.tabBar(this.barBuilder(3, '我的', $r('app.media.ic_tabs_mine_normal'), $r('app.media.ic_tabs_mine_sel')))
     }
     .barPosition(BarPosition.End)
     .onChange((index) => {

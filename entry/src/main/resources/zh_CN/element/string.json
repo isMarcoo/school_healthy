@@ -87,6 +87,10 @@
     {
       "name": "have_an_account",
       "value": "已经有账号，点击这里立即登录!"
+    },
+    {
+      "name": "empty",
+      "value": "empty"
     }
   ]
 }

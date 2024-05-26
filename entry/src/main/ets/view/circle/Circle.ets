@@ -1,4 +1,4 @@
-import { PostInfo } from '../model/PostInfo'
+import { PostInfo } from '../../model/PostInfo'
 import router from '@ohos.router'
 
 @Component
@@ -38,7 +38,7 @@ export struct CirclePage {
                 .color(Color.Black)
                 .margin({ left: 20, right: 20, top: 10 })
 
-            if (true) {
+            if (this.token) {
                 this.listBuilder()
             } else {
                 this.unLoginBuilder()

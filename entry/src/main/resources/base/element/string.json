@@ -87,6 +87,10 @@
     {
       "name": "empty_tips",
       "value": "请完善用户信息"
+    },
+    {
+      "name": "empty",
+      "value": "empty"
     }
   ]
 }
