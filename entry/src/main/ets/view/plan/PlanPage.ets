@@ -1,3 +1,4 @@
+import header from '../Header'
 import { PlanHeader } from './PlanHeader'
 import { PlanList } from './PlanList'
 import { PlanStatsCard } from './PlanStatsCard'
@@ -6,7 +7,8 @@ export struct PlanPage {
     build() {
         Column({space: 8}) {
             // 1.header
-            PlanHeader()
+            header('计划打卡')
+            // PlanHeader()
             // 2.统计卡片
             PlanStatsCard()
             // 3.计划列表

@@ -1,5 +1,6 @@
 import { PostInfo } from '../../model/PostInfo'
 import router from '@ohos.router'
+import header from '../Header'
 
 @Component
 export struct CirclePage {
@@ -30,13 +31,7 @@ export struct CirclePage {
 
     build() {
         Column() {
-            Text('运动打卡圈')
-                .fontSize(18)
-                .margin({top : 45})
-                .fontWeight(FontWeight.Bold)
-            Divider()
-                .color(Color.Black)
-                .margin({ left: 20, right: 20, top: 10 })
+            header('运动打卡圈')
 
             if (this.token) {
                 this.listBuilder()
@@ -51,9 +46,10 @@ export struct CirclePage {
     @Builder
     unLoginBuilder() {
         Column({ space: 30 }) {
-            Image($r("app.media.app_icon"))
+            Image($r("app.media.ic_logo"))
                 .width(177)
                 .height(177)
+                .borderRadius(100)
 
             Text('未登录暂无数据')
                 .fontSize(14)

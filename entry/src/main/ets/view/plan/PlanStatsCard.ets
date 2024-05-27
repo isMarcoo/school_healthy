@@ -15,10 +15,12 @@ export struct PlanStatsCard {
         Column() {
             Row() {
                 Text(DateUtil.formatDate(this.selectedDate))
-                    .fontColor('#5d907a')
+                    // .fontColor('#5d907a')
+                    .fontColor(Color.Black)
                 Image($r('app.media.ic_public_spinner'))
                     .width(20)
-                    .fillColor('#5d907a')
+                    // .fillColor('#5d907a')
+                    .fillColor(Color.Black)
             }
             .padding(6)
             .onClick(() => this.controller.open())
@@ -33,7 +35,8 @@ export struct PlanStatsCard {
             .indicatorStyle({selectedColor: '#02BD79'})
         }
         .width('94%')
-        .backgroundColor('#d6eee1')
+        // .backgroundColor('#d6eee1')
+        .backgroundColor('#E9EAEC')
         .borderRadius(18)
     }
 }

@@ -1,3 +1,4 @@
+import { AchievementPage } from '../view/achievement/AchievementPage';
 import { CirclePage } from '../view/circle/Circle';
 import { MinePage } from '../view/mine/MinePage';
 import { PlanPage } from '../view/plan/PlanPage';
@@ -14,6 +15,7 @@ struct Index {
 
       TabContent() {
       // 成就页面
+        AchievementPage()
       }.tabBar(this.barBuilder(1, '成就', $r('app.media.ic_tabs_achievement_normal'), $r('app.media.ic_tabs_achievement_sel')))
 
       TabContent() {
