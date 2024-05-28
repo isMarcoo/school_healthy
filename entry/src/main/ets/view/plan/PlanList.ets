@@ -1,12 +1,19 @@
 import { PlanListItem } from './PlanListItem'
 import { PlanListInfo } from '../../model/PlanListInfo'
+import { getPlanList } from '../../http/Api'
+import { PlanItem } from '../../model/PlanItem'
 
 @Component
 export struct PlanList {
-    private totalDate: Array<string> = []
+    @State totalData: Array<PlanItem> = []
+    @StorageLink('token') token: string = ''
 
-    aboutToAppear(){
-        this.totalDate = new PlanListInfo().getData()
+    async aboutToAppear(){
+        let response = await getPlanList(this.token)
+        let data = response.data.data
+        let planListInfo = new PlanListInfo()
+        planListInfo.setData(data)
+        this.totalData = planListInfo.getData()
     }
 
     build() {
@@ -22,11 +29,14 @@ export struct PlanList {
                     bottom: 12
                 })
 
-            ForEach(this.totalDate, (item: string) => {
-                PlanListItem({
-                    task_content: item
+            if (this.totalData) {
+                ForEach(this.totalData, (item: PlanItem) => {
+                    PlanListItem({
+                        task_content: item.getData()['planName']
+                    })
                 })
-            })
+            }
+
 
         }
         .width('94%')

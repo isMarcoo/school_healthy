@@ -17,3 +17,7 @@ export function info(token: string) {
 export function register(username: string, password: string) {
     return instance.post('/user/register', { username: username, password: password })
 }
+
+export function getPlanList(token: string) {
+    return instance.get('/plan/list', { params: { token: token }})
+}
