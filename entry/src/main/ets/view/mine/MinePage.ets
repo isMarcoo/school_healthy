@@ -11,7 +11,7 @@ export struct MinePage {
     } = {};
     async onTokenChange() {
         if (this.token) {
-            let response = await info()
+            let response = await info(this.token)
             this.userInfo = response.data.data;
         } else {
             this.userInfo = {}
@@ -19,8 +19,9 @@ export struct MinePage {
     }
     async aboutToAppear() {
         if (this.token) {
-            let response = await info()
+            let response = await info(this.token)
             this.userInfo = response.data.data;
+            console.log("abouttoappear")
         }
     }
     build() {

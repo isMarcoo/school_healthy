@@ -10,6 +10,10 @@ export function login(username: string, password: string) {
 }
 
 //获取个人信息
-export function info() {
-    return instance.get('/user/info')
+export function info(token: string) {
+    return instance.get('/user/info', { params: { token: token } })
+}
+
+export function register(username: string, password: string) {
+    return instance.post('/user/register', { username: username, password: password })
 }

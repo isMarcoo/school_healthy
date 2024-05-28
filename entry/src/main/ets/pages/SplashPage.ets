@@ -27,6 +27,7 @@ struct SplashPage {
         Column() {
             if (this.flag) {
                 Image($r('app.media.ic_logo'))
+                    .borderRadius(100)
                     .logoStyle()
                     .transition({
                         type: TransitionType.Insert,

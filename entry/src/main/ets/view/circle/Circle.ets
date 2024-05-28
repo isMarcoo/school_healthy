@@ -45,7 +45,7 @@ export struct CirclePage {
 
     @Builder
     unLoginBuilder() {
-        Column({ space: 30 }) {
+        Column({space: 8}) {
             Image($r("app.media.ic_logo"))
                 .width(177)
                 .height(177)
@@ -66,6 +66,7 @@ export struct CirclePage {
         .width('100%')
         .layoutWeight(1)
         .justifyContent(FlexAlign.Center)
+        .backgroundColor('#F6F7Fb')
     }
 
     @Builder

@@ -1,5 +1,6 @@
 import router from '@ohos.router'
 import { login } from '../http/Api'
+
 @Entry
 @Component
 struct LoginPage {
@@ -50,15 +51,18 @@ struct LoginPage {
             //登录
             let response = await login(this.username, this.password)
             this.token = response.data.token
-
+            router.back()
           })
         Row() {
-          Text('登录即表示已同意')
+          Text('没有账号？')
             .fontSize(10)
             .fontColor('#546B9D')
-          Text('《⽤户使⽤协议》')
+          Text('点此注册')
             .fontSize(10)
             .fontColor('#00B3FF')
+            .onClick(() => {
+              router.pushUrl({url: 'pages/RegisterPage'})
+            })
         }.margin({ top: 20 })
       }.formBgStyle()
       Row({ space: 10 }) {
