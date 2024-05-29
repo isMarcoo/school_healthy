@@ -3,6 +3,7 @@
     "pages/Index",
     "pages/SplashPage",
     "pages/LoginPage",
-    "pages/RegisterPage"
+    "pages/RegisterPage",
+    "pages/AddPlan"
   ]
 }

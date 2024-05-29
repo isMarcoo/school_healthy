@@ -1,6 +1,6 @@
 import DateUtil from '../../utils/DateUtil'
 import { PlanBasicStates } from './PlanBasicStates'
-import { PlanCalorieStates } from './PlanCalorieStates'
+import { PlanAllStates } from './PlanAllStates'
 import PlanPickDialog from './PlanPickDialog'
 
 @Component
@@ -27,7 +27,7 @@ export struct PlanStatsCard {
 
             Swiper() {
                 PlanBasicStates()
-                PlanCalorieStates()
+                PlanAllStates()
             }
             .width('100%')
             .backgroundColor(Color.White)
@@ -35,7 +35,6 @@ export struct PlanStatsCard {
             .indicatorStyle({selectedColor: '#02BD79'})
         }
         .width('94%')
-        // .backgroundColor('#d6eee1')
         .backgroundColor('#E9EAEC')
         .borderRadius(18)
     }

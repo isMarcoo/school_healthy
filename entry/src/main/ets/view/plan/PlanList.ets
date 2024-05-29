@@ -1,15 +1,33 @@
 import { PlanListItem } from './PlanListItem'
 import { PlanListInfo } from '../../model/PlanListInfo'
-import { getPlanList } from '../../http/Api'
+import { getPlanList, uploadPlan } from '../../http/Api'
 import { PlanItem } from '../../model/PlanItem'
+import router from '@ohos.router'
 
 @Component
 export struct PlanList {
+    scroller: Scroller = new Scroller()
     @State totalData: Array<PlanItem> = []
     @StorageLink('token') token: string = ''
+    @StorageLink('refresh') @Watch('refreshF') refresh: boolean = false
+    @StorageLink('upload') @Watch('uploadF') upload: boolean = false
+    @StorageProp('selectedDate') @Watch('refreshF') selectedDate: number = 0
+
+    async uploadF() {
+        uploadPlan(this.token, this.totalData, this.selectedDate)
+        this.upload = false
+    }
+
+    async refreshF() {
+        let response = await getPlanList(this.token, this.selectedDate)
+        let data = response.data.data
+        let planListInfo = new PlanListInfo()
+        planListInfo.setData(data)
+        this.totalData = planListInfo.getData()
+    }
 
     async aboutToAppear(){
-        let response = await getPlanList(this.token)
+        let response = await getPlanList(this.token, this.selectedDate)
         let data = response.data.data
         let planListInfo = new PlanListInfo()
         planListInfo.setData(data)
@@ -29,18 +47,23 @@ export struct PlanList {
                     bottom: 12
                 })
 
-            if (this.totalData) {
-                ForEach(this.totalData, (item: PlanItem) => {
-                    PlanListItem({
-                        task_content: item.getData()['planName']
-                    })
-                })
+            Scroll(this.scroller) {
+                Column({space: 6}) {
+                    if (this.totalData) {
+                        ForEach(this.totalData, (item: PlanItem) => {
+                            PlanListItem({
+                                planItem: item
+                            })
+                        })
+                    }
+                }
             }
-
-
+            .scrollable(ScrollDirection.Vertical)
+            .edgeEffect(EdgeEffect.Spring)
+            .scrollBar(BarState.Off)
         }
         .width('94%')
-        .height('100%')
+        .height(355)
         .borderRadius(24)
     }
 }

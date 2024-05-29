@@ -3,29 +3,60 @@ import { PlanHeader } from './PlanHeader'
 import { PlanList } from './PlanList'
 import { PlanStatsCard } from './PlanStatsCard'
 import router from '@ohos.router'
+import { check } from '../../http/Api'
+import promptAction from '@ohos.promptAction'
 @Component
 export struct PlanPage {
     @StorageProp('token') token : string = ''
+    @StorageLink('checked') checked: boolean = false
 
     build() {
-        Column({space: 8}) {
-            // 1.header
-            header('计划打卡')
-            // PlanHeader()
+            Column({space: 8}) {
+                // 1.header
+                header('计划打卡')
+                // PlanHeader()
 
-            if (this.token) {
-                // 2.统计卡片
-                PlanStatsCard()
-                // 3.计划列表
-                PlanList()
-            } else {
-                this.unLoginBuilder()
+                if (this.token) {
+                    // 2.统计卡片
+                    PlanStatsCard()
+                    // 3.计划列表
+                    PlanList()
+
+                    Column({ space: 20 }) {
+                        Button({ type: ButtonType.Circle }) {
+                            Image($r('app.media.ic_home_add'))
+                                .height('100%')
+                                .width('100%')
+                        }
+                        .height(40)
+                        .width(40)
+                        .onClick(async () => {
+                            let response = await check(this.token)
+                            let message = response.data.message
+                            promptAction.showToast({ message: message })
+                            this.checked = true
+                        })
+
+                        Button({ type: ButtonType.Circle }) {
+                            Image($r('app.media.ic_home_add'))
+                                .height('100%')
+                                .width('100%')
+                        }
+                        .height(40)
+                        .width(40)
+                        .onClick(() => {
+                            router.pushUrl({url: 'pages/AddPlan'})
+                        })
+                    }
+                    .position({x: '83%', y: '80%'})
+                } else {
+                    this.unLoginBuilder()
+                }
+
             }
-
-        }
-        .width('100%')
-        .height('100%')
-        .backgroundColor('#F6F7Fb')
+            .width('100%')
+            .height('100%')
+            .backgroundColor('#F6F7Fb')
     }
 
     @Builder

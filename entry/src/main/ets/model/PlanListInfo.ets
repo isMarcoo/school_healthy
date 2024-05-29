@@ -19,6 +19,10 @@ export class PlanListInfo {
             let plan = new PlanItem()
             plan.setPlanName(data['planName'])
             plan.setPlanCost(data['planCost'])
+            if (data['isComplete'] == "False")
+                plan.setIsComplete(false)
+            else
+                plan.setIsComplete(true)
             this.tasks.push(plan)
         }
     }
