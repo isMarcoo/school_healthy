@@ -7,6 +7,7 @@ struct LoginPage {
   @State username:string=''
   @State password:string=''
   @StorageLink('token') token:string = ''
+  @StorageLink('refresh') refresh: boolean = false
 
   build() {
     Column() {
@@ -51,6 +52,7 @@ struct LoginPage {
             //登录
             let response = await login(this.username, this.password)
             this.token = response.data.token
+            this.refresh = !this.refresh
             router.back()
           })
         Row() {

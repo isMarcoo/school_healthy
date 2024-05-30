@@ -4,6 +4,7 @@
     "pages/SplashPage",
     "pages/LoginPage",
     "pages/RegisterPage",
-    "pages/AddPlan"
+    "pages/AddPlan",
+    "pages/PostHistoryPage"
   ]
 }

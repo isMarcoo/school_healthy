@@ -1,14 +1,53 @@
 import header from '../Header'
-import { PlanHeader } from './PlanHeader'
 import { PlanList } from './PlanList'
 import { PlanStatsCard } from './PlanStatsCard'
 import router from '@ohos.router'
-import { check } from '../../http/Api'
-import promptAction from '@ohos.promptAction'
+import { check, getTimeByDay } from '../../http/Api'
+import { CheckDialog } from '../plan/CheckDialog'
+import DateUtil from '../../utils/DateUtil'
 @Component
 export struct PlanPage {
+    @State todayTask: number = 0
+    @State completedTask: number = 0
+    @State todayTime: number = 0
+    @State completedTime: number = 0
+
     @StorageProp('token') token : string = ''
     @StorageLink('checked') checked: boolean = false
+    @StorageProp('selectedDate') selectedDate: number = DateUtil.beginTimeOfDay(new Date())
+    @StorageLink('refresh') @Watch('refreshF') refresh: boolean = false
+
+    checkController: CustomDialogController = new CustomDialogController({
+        builder: CheckDialog({
+            todayTask: this.todayTask,
+            completedTask: this.completedTask,
+            completedTime: this.completedTime
+        }),
+        customStyle: true
+    })
+
+    async refreshF() {
+        if (this.token){
+            let response = await getTimeByDay(this.token, this.selectedDate)
+            let data = response.data.data
+            this.todayTime = data['totalTime']
+            this.completedTime = data['completedTime']
+            this.todayTask = data['todayTask']
+            this.completedTask = data['completedTask']
+
+        }
+    }
+
+    async aboutToAppear() {
+        if (this.token) {
+            let response = await getTimeByDay(this.token, this.selectedDate)
+            let data = response.data.data
+            this.todayTime = data['totalTime']
+            this.completedTime = data['completedTime']
+            this.todayTask = data['todayTask']
+            this.completedTask = data['completedTask']
+        }
+    }
 
     build() {
             Column({space: 8}) {
@@ -24,26 +63,30 @@ export struct PlanPage {
 
                     Column({ space: 20 }) {
                         Button({ type: ButtonType.Circle }) {
-                            Image($r('app.media.ic_home_add'))
+                            Image($r('app.media.ic_check'))
                                 .height('100%')
                                 .width('100%')
                         }
                         .height(40)
                         .width(40)
+                        .backgroundColor(Color.Transparent)
                         .onClick(async () => {
-                            let response = await check(this.token)
-                            let message = response.data.message
-                            promptAction.showToast({ message: message })
-                            this.checked = true
+                            this.checkController.open()
                         })
 
                         Button({ type: ButtonType.Circle }) {
-                            Image($r('app.media.ic_home_add'))
-                                .height('100%')
-                                .width('100%')
+                            Text('+')
+                                .fontColor(Color.Blue)
+                                .fontSize(40)
+                                .textAlign(TextAlign.Center)
+                            // Image($r('app.media.ic_home_add'))
+                            //     .height('100%')
+                            //     .width('100%')
+                                // .fillColor(Color.Blue)
                         }
                         .height(40)
                         .width(40)
+                        .backgroundColor(Color.Transparent)
                         .onClick(() => {
                             router.pushUrl({url: 'pages/AddPlan'})
                         })

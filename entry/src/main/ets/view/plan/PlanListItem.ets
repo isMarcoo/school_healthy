@@ -1,9 +1,8 @@
-import { deletePlan } from '../../http/Api';
+import { deletePlan, uploadPlan } from '../../http/Api';
 import { PlanItem } from '../../model/PlanItem';
 @Component
 export struct PlanListItem {
     @ObjectLink planItem: PlanItem
-    @StorageLink('upload') upload: boolean = false
     @State delete: boolean = false
     @StorageProp('token') token: string = ''
     @StorageProp('selectedDate') selectedDate: number = 0
@@ -23,20 +22,20 @@ export struct PlanListItem {
                 .backgroundColor(Color.Red)
                 .onClick(() => {
                     this.delete = false
-                    deletePlan(this.token, this.selectedDate, this.planItem.getData().planName)
+                    deletePlan(this.token, this.selectedDate, this.planItem.planName)
                     this.refresh = !this.refresh
                 })
             }
-            if (this.planItem.getData()['isComplete']) {
+            if (this.planItem.isComplete) {
                 this.CreateIcon($r('app.media.ic_accuracy'))
             }else {
                 this.CreateIcon($r('app.media.ic_accuracy_white'))
             }
-            Text(this.planItem.getData()['planName'])
+            Text(this.planItem.planName)
                 .fontSize(20)
                 .fontWeight(500)
-                .decoration({type: this.planItem.getData()['isComplete'] ? TextDecorationType.LineThrough : TextDecorationType.None})
-                .opacity(this.planItem.getData()['isComplete'] ? 0.5 : 1)
+                .decoration({type: this.planItem.isComplete ? TextDecorationType.LineThrough : TextDecorationType.None})
+                .opacity(this.planItem.isComplete ? 0.5 : 1)
         }
         .borderRadius(24)
         .backgroundColor(Color.White)
@@ -45,12 +44,16 @@ export struct PlanListItem {
         .gesture(
             LongPressGesture({repeat: false})
                 .onAction(() => {
-                    this.delete = true
+                    if (this.delete)
+                        this.delete = false
+                    else
+                        this.delete = true
                 })
         )
         .onClick(() => {
-            this.planItem.setIsComplete(!this.planItem.getData()['isComplete'])
-            this.upload = true
+            this.planItem.isComplete =  !this.planItem.isComplete
+            uploadPlan(this.token, this.planItem.planName, this.planItem.isComplete, this.selectedDate)
+            this.refresh = !this.refresh
         })
     }
 

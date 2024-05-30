@@ -10,13 +10,8 @@ export struct PlanList {
     @State totalData: Array<PlanItem> = []
     @StorageLink('token') token: string = ''
     @StorageLink('refresh') @Watch('refreshF') refresh: boolean = false
-    @StorageLink('upload') @Watch('uploadF') upload: boolean = false
     @StorageProp('selectedDate') @Watch('refreshF') selectedDate: number = 0
 
-    async uploadF() {
-        uploadPlan(this.token, this.totalData, this.selectedDate)
-        this.upload = false
-    }
 
     async refreshF() {
         let response = await getPlanList(this.token, this.selectedDate)

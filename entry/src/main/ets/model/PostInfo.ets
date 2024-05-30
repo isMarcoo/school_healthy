@@ -2,24 +2,24 @@
 export class PostInfo {
     id : number;
     postText : string;
-    rightCount : number;
-    answeredCount : number;
-    timeUsed : number;
+    completedTask : number;
+    todayTask : number;
+    completedTime : number;
     createTime : string;
     likeCount : number;
-    nickname : string;
+    username : string;
     avatarUrl : string;
     isLike : boolean;
 
-    constructor(post:{id: number, postText: string, rightCount: number, answeredCount: number, timeUsed: number, createTime : string, likeCount : number, nickname : string, avatarUrl : string, isLike : boolean}) {
+    constructor(post:{id: number, postText: string, completedTask: number, todayTask: number, completedTime: number, createTime : string, likeCount : number, username : string, avatarUrl : string, isLike : boolean}) {
         this.id = post.id;
         this.postText = post.postText;
-        this.rightCount = post.rightCount;
-        this.answeredCount = post.answeredCount;
-        this.timeUsed = post.timeUsed;
+        this.completedTask = post.completedTask;
+        this.todayTask = post.todayTask;
+        this.completedTime = post.completedTime;
         this.createTime = post.createTime;
         this.likeCount = post.likeCount;
-        this.nickname = post.nickname;
+        this.username = post.username;
         this.avatarUrl = post.avatarUrl;
         this.isLike = post.isLike;
     }

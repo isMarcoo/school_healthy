@@ -27,8 +27,8 @@ export function addPlan(token: string, selectedDate: number, planName: string, p
     return instance.post('/plan/add', { token: token, selectedDate: selectedDate, planName: planName, planCost: planCost })
 }
 
-export function uploadPlan(token: string, totalData: Array<PlanItem>, selectedDate: number) {
-    return instance.post('plan/update', { token: token, totalData: totalData, selectedDate: selectedDate })
+export function uploadPlan(token: string, planName: string, isComplete: boolean, selectedDate: number) {
+    return instance.post('plan/update', { token: token, planName: planName, isComplete: isComplete, selectedDate: selectedDate })
 }
 
 export function getTimeByDay(token: string, selectedDate: number) {
@@ -43,10 +43,26 @@ export function getConsecutiveDay(token: string) {
     return instance.post('/user/consecutive', { token: token })
 }
 
-export function check(token: string) {
-    return instance.post('/user/check', { token: token })
+export function check(token: string, selectedDate: number, completedTime: number, todayTask: number, completedTask) {
+    return instance.post('/user/check', { token: token , selectedDate: selectedDate, completedTime: completedTime, todayTask: todayTask, completedTask: completedTask})
 }
 
 export function deletePlan(token: string, selectedDate: number, planName: string){
     return instance.post('/plan/delete', { token: token, selectedDate: selectedDate, planName: planName })
+}
+
+export function getAllPost(page: number, size: number) {
+    return instance.get('/post/getAll', { params: { page: page, size: size } })
+}
+
+export function like(postId: number) {
+    return instance.get('/like/create', { params: { postId: postId } })
+}
+
+export function cancelLike(postId: number) {
+    return instance.get('/like/cancel', { params: { postId: postId } })
+}
+
+export function getMyPost(page: number, size: number, token: string) {
+    return instance.get('/post/mine', { params: { page: page, size: size, token: token} })
 }

@@ -5,8 +5,8 @@ export class PlanListInfo {
 
     init() {
         let plan = new PlanItem()
-        plan.setPlanName('跑步')
-        plan.setPlanCost(50)
+        plan.planName = '跑步'
+        plan.planCost = 50
         this.tasks.push(plan)
     }
 
@@ -17,12 +17,12 @@ export class PlanListInfo {
     setData(totalData) {
         for (let data of totalData) {
             let plan = new PlanItem()
-            plan.setPlanName(data['planName'])
-            plan.setPlanCost(data['planCost'])
+            plan.planName = data['planName']
+            plan.planCost = data['planCost']
             if (data['isComplete'] == "False")
-                plan.setIsComplete(false)
+                plan.isComplete = false
             else
-                plan.setIsComplete(true)
+                plan.isComplete = true
             this.tasks.push(plan)
         }
     }

@@ -9,17 +9,7 @@ export struct PlanAllStates {
 
     @StorageLink('token') token: string = ''
     @StorageLink('refresh') @Watch('refreshF') refresh: boolean = false
-    @StorageLink('upload') @Watch('uploadF') upload: boolean = false
 
-    async uploadF() {
-        let response = await getTime(this.token)
-        let data = response.data.data
-        this.allTask = data['allTask']
-        this.allTaskCompleted = data['allTaskCompleted']
-        this.allTime = data['allTime']
-        this.allTimeCompleted = data['allTimeCompleted']
-        this.allDay = data['allDay']
-    }
 
     async refreshF() {
         let response = await getTime(this.token)
@@ -45,7 +35,7 @@ export struct PlanAllStates {
     build() {
         Row({space: 6}) {
             this.ProgressBuilder({
-                label: '今日任务',
+                label: '总任务',
                 value: this.allTaskCompleted,
                 recommend: this.allTask,
                 color: '#ffcc83'
@@ -55,7 +45,7 @@ export struct PlanAllStates {
                 value: this.allDay
             })
             this.ProgressBuilder({
-                label: '今日任务',
+                label: '总时长',
                 value: this.allTimeCompleted,
                 recommend: this.allTime,
                 color: '#ffcc83'
@@ -94,7 +84,7 @@ export struct PlanAllStates {
                     .style({strokeWidth: 8})
                     .color($$.color)
                 Column({space: 6}) {
-                    Text('摄入推荐')
+                    Text(`${$$.label}`)
                         .fontSize(12)
                         .fontColor('#b5b5b7')
                     Text(`${$$.value.toFixed(0)}/${$$.recommend.toFixed(0)}`)
@@ -102,9 +92,9 @@ export struct PlanAllStates {
                         .fontWeight(600)
                 }
             }
-            Text(`${$$.label} (克)`)
-                .fontSize(12)
-                .fontColor('#b5b5b7')
+            // Text(`${$$.label}`)
+            //     .fontSize(12)
+            //     .fontColor('#b5b5b7')
         }
     }
 }

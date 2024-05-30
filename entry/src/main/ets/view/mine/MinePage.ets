@@ -33,7 +33,9 @@ export struct MinePage {
                     .borderRadius(50)
                     .margin({ top: 120 })
                     .onClick(() => {
-                        router.pushUrl({ url: 'pages/LoginPage' })
+                        if (!this.token){
+                            router.pushUrl({ url: 'pages/LoginPage' })
+                        }
                     })
                 Text(this.token ? this.userInfo.nickname : '暂未登录')
                     .fontSize(18)

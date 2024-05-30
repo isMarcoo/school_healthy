@@ -9,27 +9,13 @@ export struct PlanBasicStates {
 
     @StorageLink('token') token: string = ''
     @StorageLink('refresh') @Watch('refreshF') refresh: boolean = false
-    @StorageLink('upload') @Watch('uploadF') upload: boolean = false
     @StorageProp('selectedDate') @Watch('refreshF') selectedDate: number = 0
     @StorageLink('checked') @Watch('withChecked') checked: boolean = false
 
     async withChecked(){
         let consecutiveResponse = await getConsecutiveDay(this.token)
         this.consecutiveDay = consecutiveResponse.data.data
-        console.log(this.consecutiveDay.toString())
         this.checked = false
-    }
-
-    async uploadF() {
-        let response = await getTimeByDay(this.token, this.selectedDate)
-        let data = response.data.data
-        this.todayTime = data['totalTime']
-        this.completedTime = data['completedTime']
-        this.todayTask = data['todayTask']
-        this.completedTask = data['completedTask']
-
-        let consecutiveResponse = await getConsecutiveDay(this.token)
-        this.consecutiveDay = consecutiveResponse.data.data
     }
 
     async refreshF() {

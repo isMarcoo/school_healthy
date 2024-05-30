@@ -3,7 +3,7 @@ import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from
 import promptAction from '@ohos.promptAction';
 //创建axios实例
 export const instance = axios.create({
-    baseURL: 'http://10.60.216.242:5000',
+    baseURL: 'http://101.201.38.159:5000',
     timeout: 10000
 })
 // 添加请求拦截器
