@@ -3,14 +3,14 @@ import { PlanListInfo } from '../../model/PlanListInfo'
 import { getPlanList, uploadPlan } from '../../http/Api'
 import { PlanItem } from '../../model/PlanItem'
 import router from '@ohos.router'
+import emitter from '@ohos.events.emitter'
 
 @Component
 export struct PlanList {
     scroller: Scroller = new Scroller()
     @State totalData: Array<PlanItem> = []
     @StorageLink('token') token: string = ''
-    @StorageLink('refresh') @Watch('refreshF') refresh: boolean = false
-    @StorageProp('selectedDate') @Watch('refreshF') selectedDate: number = 0
+    @StorageProp('selectedDate') selectedDate: number = 0
 
 
     async refreshF() {
@@ -27,6 +27,15 @@ export struct PlanList {
         let planListInfo = new PlanListInfo()
         planListInfo.setData(data)
         this.totalData = planListInfo.getData()
+
+        emitter.on({eventId: 2}, () => {
+            this.refreshF()
+        })
+
+        emitter.on({eventId: 3}, () => {
+            this.totalData = []
+            this.refreshF()
+        })
     }
 
     build() {

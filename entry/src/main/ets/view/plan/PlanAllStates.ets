@@ -1,4 +1,5 @@
 import { getTime } from '../../http/Api'
+import emitter from '@ohos.events.emitter'
 @Component
 export struct PlanAllStates {
     @State allTask: number = 0
@@ -8,7 +9,6 @@ export struct PlanAllStates {
     @State allDay: number = 0
 
     @StorageLink('token') token: string = ''
-    @StorageLink('refresh') @Watch('refreshF') refresh: boolean = false
 
 
     async refreshF() {
@@ -29,6 +29,10 @@ export struct PlanAllStates {
         this.allTime = data['allTime']
         this.allTimeCompleted = data['allTimeCompleted']
         this.allDay = data['allDay']
+
+        emitter.on({eventId: 2}, () => {
+            this.refreshF()
+        })
     }
 
 
@@ -92,9 +96,6 @@ export struct PlanAllStates {
                         .fontWeight(600)
                 }
             }
-            // Text(`${$$.label}`)
-            //     .fontSize(12)
-            //     .fontColor('#b5b5b7')
         }
     }
 }

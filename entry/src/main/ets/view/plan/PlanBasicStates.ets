@@ -1,4 +1,5 @@
 import { check, getConsecutiveDay, getTime, getTimeByDay } from '../../http/Api'
+import emitter from '@ohos.events.emitter'
 @Component
 export struct PlanBasicStates {
     @State todayTask: number = 0
@@ -8,14 +9,12 @@ export struct PlanBasicStates {
     @State consecutiveDay: number = 0
 
     @StorageLink('token') token: string = ''
-    @StorageLink('refresh') @Watch('refreshF') refresh: boolean = false
-    @StorageProp('selectedDate') @Watch('refreshF') selectedDate: number = 0
-    @StorageLink('checked') @Watch('withChecked') checked: boolean = false
+    @StorageProp('selectedDate') selectedDate: number = 0
 
     async withChecked(){
+        this.consecutiveDay = 0
         let consecutiveResponse = await getConsecutiveDay(this.token)
         this.consecutiveDay = consecutiveResponse.data.data
-        this.checked = false
     }
 
     async refreshF() {
@@ -25,9 +24,6 @@ export struct PlanBasicStates {
         this.completedTime = data['completedTime']
         this.todayTask = data['todayTask']
         this.completedTask = data['completedTask']
-
-        let consecutiveResponse = await getConsecutiveDay(this.token)
-        this.consecutiveDay = consecutiveResponse.data.data
     }
 
     async aboutToAppear(){
@@ -40,6 +36,21 @@ export struct PlanBasicStates {
 
         let consecutiveResponse = await getConsecutiveDay(this.token)
         this.consecutiveDay = consecutiveResponse.data.data
+
+        emitter.on({eventId: 2}, () => {
+            this.refreshF()
+        })
+        emitter.on({eventId: 1}, () => {
+            this.withChecked()
+        })
+        emitter.on({eventId: 3}, () => {
+            this.todayTask = 0
+            this.completedTask = 0
+            this.todayTime = 0
+            this.completedTime = 0
+            this.consecutiveDay = 0
+            this.refreshF()
+        })
     }
 
 

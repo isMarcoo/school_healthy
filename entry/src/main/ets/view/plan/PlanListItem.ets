@@ -1,5 +1,6 @@
 import { deletePlan, uploadPlan } from '../../http/Api';
 import { PlanItem } from '../../model/PlanItem';
+import emitter from '@ohos.events.emitter';
 @Component
 export struct PlanListItem {
     @ObjectLink planItem: PlanItem
@@ -23,7 +24,7 @@ export struct PlanListItem {
                 .onClick(() => {
                     this.delete = false
                     deletePlan(this.token, this.selectedDate, this.planItem.planName)
-                    this.refresh = !this.refresh
+                    emitter.emit({eventId: 2})
                 })
             }
             if (this.planItem.isComplete) {
@@ -53,7 +54,7 @@ export struct PlanListItem {
         .onClick(() => {
             this.planItem.isComplete =  !this.planItem.isComplete
             uploadPlan(this.token, this.planItem.planName, this.planItem.isComplete, this.selectedDate)
-            this.refresh = !this.refresh
+            emitter.emit({eventId: 2})
         })
     }
 

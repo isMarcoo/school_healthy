@@ -15,11 +15,9 @@ export struct PlanStatsCard {
         Column() {
             Row() {
                 Text(DateUtil.formatDate(this.selectedDate))
-                    // .fontColor('#5d907a')
                     .fontColor(Color.Black)
                 Image($r('app.media.ic_public_spinner'))
                     .width(20)
-                    // .fillColor('#5d907a')
                     .fillColor(Color.Black)
             }
             .padding(6)

@@ -200,7 +200,7 @@ struct PostItem {
                     StatItem({
                         icon: $r('app.media.ic_timer'),
                         name: '锻炼时长',
-                        fontColor: Color.Black
+                        fontColor: Color.White
                     }) {
                         Text(this.post.completedTime.toString())
                             .statTextStyle()
@@ -208,7 +208,7 @@ struct PostItem {
                     StatItem({
                         icon: $r('app.media.ic_timer'),
                         name: '完成率',
-                        fontColor: Color.Black
+                        fontColor: Color.White
                     }) {
                         Text((this.post.completedTask === 0 ? 0 : this.post.completedTask/this.post.todayTask*100).toFixed() + '%')
                             .statTextStyle()
@@ -216,7 +216,7 @@ struct PostItem {
                     StatItem({
                         icon: $r('app.media.ic_timer'),
                         name: '任务',
-                        fontColor: Color.Black
+                        fontColor: Color.White
                     }) {
                         Text(this.post.completedTask + '/' + this.post.todayTask)
                             .statTextStyle()
@@ -225,15 +225,16 @@ struct PostItem {
                 .padding(10)
                 .borderRadius(10)
                 .layoutWeight(1)
-                // .backgroundImage($r('app.media.ic_home_bg'))
-                // .backgroundImageSize(ImageSize.Cover)
+                .backgroundImage($r("app.media.img_card_bg_2"))
+                .backgroundImageSize(ImageSize.Cover)
+                .backdropBlur(5)
 
                 Column() {
                     Text(this.post.likeCount.toString())
                         .fontSize(12)
                         .fontWeight(FontWeight.Medium)
                         .fontColor(this.post.isLike ? '#3ECBA1' : '#000000')
-                    Image(this.post.isLike ? $r('app.media.ic_post_like') : $r('app.media.ic_post_like_selected'))
+                    Image(this.post.isLike ? $r('app.media.ic_post_like_selected') : $r('app.media.ic_post_like'))
                         .width(26)
                         .height(26)
                         .onClick(() => {
@@ -258,8 +259,6 @@ struct PostItem {
         .margin({ top: 10 })
         .borderRadius(10)
         .shadow({ radius: 20 })
-        .backgroundImage($r('app.media.ic_home_bg'))
-        .backgroundImageSize(ImageSize.Cover)
     }
 }
 
@@ -275,6 +274,7 @@ struct StatItem {
             Image(this.icon)
                 .height(14)
                 .width(14)
+                .fillColor(Color.White)
             Text(this.name)
                 .fontWeight(FontWeight.Medium)
                 .fontSize(14)
@@ -292,6 +292,6 @@ struct StatItem {
     .fontSize(16)
     .textAlign(TextAlign.End)
     .fontWeight(FontWeight.Medium)
-    .fontColor(Color.Black)
+    .fontColor(Color.White)
 }
 

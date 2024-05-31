@@ -1,3 +1,4 @@
+import emitter from '@ohos.events.emitter'
 @CustomDialog
 export default  struct PlanPickDialog {
     controller: CustomDialogController
@@ -24,6 +25,7 @@ export default  struct PlanPickDialog {
                     .backgroundColor('#02BD79')
                     .onClick(() => {
                         AppStorage.SetOrCreate('selectedDate', this.selectedDate.getTime())
+                        emitter.emit({eventId: 3})
                         this.controller.close()
                     })
             }

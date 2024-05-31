@@ -5,17 +5,17 @@ import router from '@ohos.router'
 import { check, getTimeByDay } from '../../http/Api'
 import { CheckDialog } from '../plan/CheckDialog'
 import DateUtil from '../../utils/DateUtil'
+import PlanAddDialog from './PlanAddDialog'
+import emitter from '@ohos.events.emitter'
 @Component
 export struct PlanPage {
     @State todayTask: number = 0
     @State completedTask: number = 0
-    @State todayTime: number = 0
     @State completedTime: number = 0
 
     @StorageProp('token') token : string = ''
     @StorageLink('checked') checked: boolean = false
     @StorageProp('selectedDate') selectedDate: number = DateUtil.beginTimeOfDay(new Date())
-    @StorageLink('refresh') @Watch('refreshF') refresh: boolean = false
 
     checkController: CustomDialogController = new CustomDialogController({
         builder: CheckDialog({
@@ -26,15 +26,22 @@ export struct PlanPage {
         customStyle: true
     })
 
+    addController: CustomDialogController = new CustomDialogController({
+        builder: PlanAddDialog(),
+        customStyle: true
+    })
+
     async refreshF() {
         if (this.token){
+            this.todayTask = 0
+            this.completedTask = 0
+            this.completedTime = 0
+
             let response = await getTimeByDay(this.token, this.selectedDate)
             let data = response.data.data
-            this.todayTime = data['totalTime']
             this.completedTime = data['completedTime']
             this.todayTask = data['todayTask']
             this.completedTask = data['completedTask']
-
         }
     }
 
@@ -42,11 +49,13 @@ export struct PlanPage {
         if (this.token) {
             let response = await getTimeByDay(this.token, this.selectedDate)
             let data = response.data.data
-            this.todayTime = data['totalTime']
             this.completedTime = data['completedTime']
             this.todayTask = data['todayTask']
             this.completedTask = data['completedTask']
         }
+        emitter.on({eventId: 2}, () => {
+            this.refreshF()
+        })
     }
 
     build() {
@@ -79,19 +88,17 @@ export struct PlanPage {
                                 .fontColor(Color.Blue)
                                 .fontSize(40)
                                 .textAlign(TextAlign.Center)
-                            // Image($r('app.media.ic_home_add'))
-                            //     .height('100%')
-                            //     .width('100%')
-                                // .fillColor(Color.Blue)
                         }
                         .height(40)
                         .width(40)
                         .backgroundColor(Color.Transparent)
                         .onClick(() => {
-                            router.pushUrl({url: 'pages/AddPlan'})
+                            // router.pushUrl({url: 'pages/AddPlan'})
+                            this.addController.open()
                         })
                     }
                     .position({x: '83%', y: '80%'})
+
                 } else {
                     this.unLoginBuilder()
                 }
@@ -100,6 +107,22 @@ export struct PlanPage {
             .width('100%')
             .height('100%')
             .backgroundColor('#F6F7Fb')
+    }
+
+    @Builder
+    loadingBuilder() {
+        Column({ space: 15 }) {
+            Image($r('app.media.ic_loading'))
+                .width(30)
+                .height(30)
+            Text('加载中...')
+                .fontSize(16)
+                .fontWeight(FontWeight.Medium)
+                .fontColor('#7e8892')
+        }
+        .width('100%')
+        .layoutWeight(1)
+        .justifyContent(FlexAlign.Center)
     }
 
     @Builder

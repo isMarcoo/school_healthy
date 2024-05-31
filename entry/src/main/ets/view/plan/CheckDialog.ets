@@ -32,7 +32,6 @@ export struct CheckDialog {
     @Prop completedTask: number
     @Prop completedTime: number
     @StorageProp('token') token: string = ''
-    @StorageLink('checked') checked: boolean = false
     @StorageProp('selectedDate') selectedDate: number = 0
 
     controller: CustomDialogController
@@ -84,7 +83,6 @@ export struct CheckDialog {
                             let response = await check(this.token, this.selectedDate, this.completedTime, this.todayTask, this.completedTask)
                             let message = response.data.message
                             promptAction.showToast({ message: message })
-                            this.checked = true
                             emitter.emit({eventId: 1})
                             this.controller.close()
                         }
