@@ -1,5 +1,6 @@
 import header from '../Header'
 import router from '@ohos.router'
+import { AchievementPanel } from './AchievementPanel'
 @Component
 export struct AchievementPage {
     @StorageProp('token') token : string = ''
@@ -9,7 +10,7 @@ export struct AchievementPage {
             header('成就')
 
             if (this.token) {
-                Text('成就页面')
+                AchievementPanel()
             } else {
                 this.unLoginBuilder()
             }

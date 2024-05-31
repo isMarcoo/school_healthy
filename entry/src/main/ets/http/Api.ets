@@ -66,3 +66,7 @@ export function cancelLike(postId: number) {
 export function getMyPost(page: number, size: number, token: string) {
     return instance.get('/post/mine', { params: { page: page, size: size, token: token} })
 }
+
+export function getCardList(token: string) {
+    return instance.post('/achievement', { token: token })
+}

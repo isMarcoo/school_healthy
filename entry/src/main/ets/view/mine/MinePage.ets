@@ -21,7 +21,6 @@ export struct MinePage {
         if (this.token) {
             let response = await info(this.token)
             this.userInfo = response.data.data;
-            console.log("abouttoappear")
         }
     }
     build() {
