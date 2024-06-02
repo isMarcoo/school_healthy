@@ -1,6 +1,7 @@
 import router from '@ohos.router';
 import promptAction from '@ohos.promptAction';
 import { info } from '../../http/Api';
+import picker from '@ohos.file.picker';
 
 @Component
 export struct MinePage {
@@ -34,6 +35,14 @@ export struct MinePage {
                     .onClick(() => {
                         if (!this.token){
                             router.pushUrl({ url: 'pages/LoginPage' })
+                        } else {
+                            let PhotoSelectOptions = new picker.PhotoSelectOptions();
+                            PhotoSelectOptions.MIMEType = picker.PhotoViewMIMETypes.IMAGE_TYPE;
+                            PhotoSelectOptions.maxSelectNumber = 1;
+                            let photoPicker = new picker.PhotoViewPicker();
+                            photoPicker.select(PhotoSelectOptions).then((PhotoSelectResult) => {
+                                this.userInfo.avatarUrl = PhotoSelectResult.photoUris[0];
+                            })
                         }
                     })
                 Text(this.token ? this.userInfo.nickname : '暂未登录')
