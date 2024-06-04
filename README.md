@@ -9,3 +9,15 @@
 - 锻炼计划管理：包含创建计划，删除计划，计划打卡，打卡统计，以及根据不同日期更新计划等
 - 打卡圈
 - 个人信息管理
+
+### File-description：/entry/src/main/
+
+```shell
+entryability：entry入口
+http：axios请求方法
+model：相关数据模型
+pages：主要页面
+utils：使用到的工具方法
+view：主要组件
+```
+

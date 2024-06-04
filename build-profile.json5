@@ -1,6 +1,20 @@
 {
   "app": {
-    "signingConfigs": [],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "C:\\Users\\76352\\.ohos\\config\\auto_debug_school_healthy_com.bjtusse.healthy_exercise_30086000711147298.cer",
+          "storePassword": "0000001B133EE1F85064A99762FCF6486F74F550318679C109EAC46518C20AEE596CA4D4467624CD9F6CF1",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B58447A7D11EF28B3BBEEF55439D0C7CE18F5D62247B41B674AEAED20C4390AD65C3CE492130EE1",
+          "profile": "C:\\Users\\76352\\.ohos\\config\\auto_debug_school_healthy_com.bjtusse.healthy_exercise_30086000711147298.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:\\Users\\76352\\.ohos\\config\\auto_debug_school_healthy_com.bjtusse.healthy_exercise_30086000711147298.p12"
+        }
+      }
+    ],
     "compileSdkVersion": 9,
     "compatibleSdkVersion": 9,
     "products": [
